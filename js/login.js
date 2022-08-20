@@ -15,7 +15,7 @@ function validar() {
     }
     //si las condiciones son validas redirecciona a pagina inicio.
     if (valido)
-     return window.location.href = "index.html";
+     return window.location.href = "inicio.html";
     }
 
     //evento iniciador de la funcion.

@@ -188,3 +188,29 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.center {
+  text-align: center;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; ;
+  height: auto;
+}
+
+.form-floating {
+  width:50%;
+  text-align: center;
+  margin-left: 25%;
+}
+
+.checkbox {
+  margin-left: 25%;
+ 
+}
+
+#login {
+   width: 50%!important ;
+   margin-left: 25% ;
+   
+}

@@ -67,8 +67,8 @@ function muestraListadoProductos(array){
 EJECUCIÓN:
 
 -Al cargar la página se llama a getJSONData() pasándole por parámetro la dirección para obtener el listado.
--Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos en categoriesArray.
--Por último, se llama a showCategoriesList() pasándole por parámetro categoriesArray.
+-Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos en array_prod.
+-Por último, se llama a muestraListadoProductos() pasándole por parámetro array_prod.
 
 */
 

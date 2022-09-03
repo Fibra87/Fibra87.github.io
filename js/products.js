@@ -5,15 +5,15 @@ let array_prod = [];
 function parrafo() {
     let etiqueta = ""
     if (categoriaSeleccionada === "101") {
-        etiqueta = "Autos.";
+        etiqueta = "Autos";
     }
     if (categoriaSeleccionada === "102") {
-        etiqueta = "Juguetes.";
+        etiqueta = "Juguetes";
     }
     if (categoriaSeleccionada === "103") {
-        etiqueta = "Muebles.";
+        etiqueta = "Muebles";
     }
-    document.getElementById("tipo").innerHTML = "Verás aquí todos los Productos de la categoría " + etiqueta
+    document.getElementById("tipo").innerHTML = etiqueta
 }
 
 /*probando funciones

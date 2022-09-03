@@ -1,5 +1,20 @@
-let prod_url="https://japceibal.github.io/emercado-api/cats_products/101.json";
+let categoriaSeleccionada = localStorage.getItem("catID")
+let prod_url="https://japceibal.github.io/emercado-api/cats_products/"+categoriaSeleccionada+".json";
 let array_prod = [];
+
+function parrafo() {
+    let etiqueta = ""
+    if (categoriaSeleccionada === "101") {
+        etiqueta = "Autos.";
+    }
+    if (categoriaSeleccionada === "102") {
+        etiqueta = "Juguetes.";
+    }
+    if (categoriaSeleccionada === "103") {
+        etiqueta = "Muebles.";
+    }
+    document.getElementById("tipo").innerHTML = "Verás aquí todos los Productos de la categoría " + etiqueta
+}
 
 /*probando funciones
 function mostrarproductos(array_prod){
@@ -77,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             array_prod = resultObj.data;
             muestraListadoProductos(array_prod)
+            parrafo()
         }
     });
 });
+

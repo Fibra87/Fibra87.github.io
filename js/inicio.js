@@ -1,4 +1,16 @@
+//Funcion que muestra el usuario loggeado tomado desde localstorage
+function mostrarUsuario(){
+    
+    usuario = localStorage.getItem("usuario");
+    document.getElementById("user").innerHTML =  usuario;
+
+}
+mostrarUsuario();
+
+
 document.addEventListener("DOMContentLoaded", function(){
+    
+        
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"
@@ -12,3 +24,4 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+

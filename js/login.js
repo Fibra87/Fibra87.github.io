@@ -1,3 +1,4 @@
+//funcion que valida campos de login.
 function validar() {
     let email = document.getElementById("floatingInput").value
     let password = document.getElementById("floatingPassword").value
@@ -14,9 +15,11 @@ function validar() {
         valido= false;
     }
     //si las condiciones son validas redirecciona a pagina inicio.
-    if (valido)
-     return window.location.href = "inicio.html";
+    if (valido){
+    localStorage.setItem("usuario", email) 
+    window.location.href = "inicio.html";
     }
+}
 
     //evento iniciador de la funcion.
 

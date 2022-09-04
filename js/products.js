@@ -1,6 +1,8 @@
 let categoriaSeleccionada = localStorage.getItem("catID")
-let prod_url="https://japceibal.github.io/emercado-api/cats_products/"+categoriaSeleccionada+".json";
+let prod_url = "https://japceibal.github.io/emercado-api/cats_products/" + categoriaSeleccionada + ".json";
 let array_prod = [];
+let valorMin = undefined;
+let valorMax = undefined;
 
 function parrafo() {
     let etiqueta = ""
@@ -47,11 +49,15 @@ function mostrarproductos(array_prod){
 
 //probando otra funcion copiada de categories
 
-function muestraListadoProductos(array){
+function muestraListadoProductos(array) {
 
     let htmlContentToAppend = "";
-    for(let i = 0; i < array_prod.products.length; i++){
+    for (let i = 0; i < array_prod.products.length; i++) {
         let cadaProducto = array_prod.products[i];
+
+        if (((valorMin == undefined) || (valorMin != undefined && parseInt(cadaProducto.cost) >= valorMin)) &&
+            ((valorMax == undefined) || (valorMax != undefined && parseInt(cadaProducto.cost) <= valorMax))) {
+
             htmlContentToAppend += `
             <div class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
@@ -60,7 +66,7 @@ function muestraListadoProductos(array){
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${cadaProducto.name}</h4>
+                            <h4 class="mb-1">${cadaProducto.name} - $${cadaProducto.cost}</h4>
                             <small class="text-muted">${cadaProducto.soldCount} artículos</small>
                         </div>
                         <p class="mb-1">${cadaProducto.description}</p>
@@ -72,6 +78,7 @@ function muestraListadoProductos(array){
 
         document.getElementById("productoscontainer").innerHTML = htmlContentToAppend;
     }
+}
 
 
 
@@ -95,5 +102,34 @@ document.addEventListener("DOMContentLoaded", function (e) {
             parrafo()
         }
     });
-});
+    document.getElementById("rangeFilterCount").addEventListener("click", function () {
+        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
+        //de productos por categoría.
+        valorMin = document.getElementById("rangeFilterCountMin").value;
+        valorMax = document.getElementById("rangeFilterCountMax").value;
 
+        if ((valorMin != undefined) && (valorMin != "") && (parseInt(valorMin)) >= 0) {
+            valorMin = parseInt(valorMin);
+        }
+        else {
+            valorMin = undefined;
+        }
+
+        if ((valorMax != undefined) && (valorMax != "") && (parseInt(valorMax)) >= 0) {
+            valorMax = parseInt(valorMax);
+        }
+        else {
+            valorMax = undefined;
+        }
+        muestraListadoProductos(array_prod);
+    });
+    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+        document.getElementById("rangeFilterCountMin").value = "";
+        document.getElementById("rangeFilterCountMax").value = "";
+
+        valorMin = undefined;
+        valorMax = undefined;
+
+        muestraListadoProductos(array_prod);
+    });
+});

@@ -5,7 +5,7 @@ let valorMin = undefined;
 let valorMax = undefined;
 const ORDER_ASC_BY_COST = "12";
 const ORDER_DESC_BY_COST = "21";
-const ORDER_BY_PROD_COUNT = "Cant.";
+const ORDER_BY_PROD_SOLDCOUNT = "Cant.";
 let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 
@@ -26,13 +26,10 @@ function sortCategories(criteria, array){
             if ( (a.cost) < (b.cost )) { return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
+    }else if (criteria === ORDER_BY_PROD_SOLDCOUNT){
         result = array.sort(function(a, b) {
-            let aCount = parseInt(a.productCount);
-            let bCount = parseInt(b.productCount);
-
-            if ( aCount > bCount ){ return -1; }
-            if ( aCount < bCount ){ return 1; }
+            if ( (a.soldCount) > (b.soldCount )) { return -1; }
+            if ( (a.soldCount) < (b.soldCount )) { return 1; }
             return 0;
         });
     }
@@ -187,6 +184,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     document.getElementById("sortDesc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_DESC_BY_COST);
+    });
+    document.getElementById("sortByCount").addEventListener("click", function(){
+        sortAndShowCategories(ORDER_BY_PROD_SOLDCOUNT);
     });
 
 });

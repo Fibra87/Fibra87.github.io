@@ -3,6 +3,55 @@ let prod_url = "https://japceibal.github.io/emercado-api/cats_products/" + categ
 let array_prod = [];
 let valorMin = undefined;
 let valorMax = undefined;
+const ORDER_ASC_BY_COST = "12";
+const ORDER_DESC_BY_COST = "21";
+const ORDER_BY_PROD_COUNT = "Cant.";
+let currentCategoriesArray = [];
+let currentSortCriteria = undefined;
+
+
+
+function sortCategories(criteria, array){
+    let result = [];
+    if (criteria === ORDER_ASC_BY_COST)
+    {
+        result = array.sort(function(a, b) {
+            if ( (a.cost) < (b.cost )) { return -1; }
+            if ( (a.cost) > (b.cost )) { return 1; }
+            return 0;
+        });
+    }else if (criteria === ORDER_DESC_BY_COST){
+        result = array.sort(function(a, b) {
+            if ( (a.cost) > (b.cost )) { return -1; }
+            if ( (a.cost) < (b.cost )) { return 1; }
+            return 0;
+        });
+    }else if (criteria === ORDER_BY_PROD_COUNT){
+        result = array.sort(function(a, b) {
+            let aCount = parseInt(a.productCount);
+            let bCount = parseInt(b.productCount);
+
+            if ( aCount > bCount ){ return -1; }
+            if ( aCount < bCount ){ return 1; }
+            return 0;
+        });
+    }
+
+    return result;
+}
+
+function sortAndShowCategories(sortCriteria, categoriesArray){
+    currentSortCriteria = sortCriteria;
+
+    if(categoriesArray != undefined){
+        array_prod = categoriesArray;
+    }
+
+    array_prod = sortCategories(currentSortCriteria, array_prod);
+
+    //Muestro las categorías ordenadas
+    muestraListadoProductos(array_prod);
+}
 
 function parrafo() {
     let etiqueta = ""
@@ -52,8 +101,8 @@ function mostrarproductos(array_prod){
 function muestraListadoProductos(array) {
 
     let htmlContentToAppend = "";
-    for (let i = 0; i < array_prod.products.length; i++) {
-        let cadaProducto = array_prod.products[i];
+    for (let i = 0; i < array_prod.length; i++) {
+        let cadaProducto = array_prod[i];
 
         if (((valorMin == undefined) || (valorMin != undefined && parseInt(cadaProducto.cost) >= valorMin)) &&
             ((valorMax == undefined) || (valorMax != undefined && parseInt(cadaProducto.cost) <= valorMax))) {
@@ -97,7 +146,7 @@ EJECUCIÓN:
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(prod_url).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            array_prod = resultObj.data;
+            array_prod = resultObj.data.products;
             muestraListadoProductos(array_prod)
             parrafo()
         }
@@ -132,4 +181,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         muestraListadoProductos(array_prod);
     });
+    document.getElementById("sortAsc").addEventListener("click", function(){
+        sortAndShowCategories(ORDER_ASC_BY_COST);
+    });
+
+    document.getElementById("sortDesc").addEventListener("click", function(){
+        sortAndShowCategories(ORDER_DESC_BY_COST);
+    });
+
 });

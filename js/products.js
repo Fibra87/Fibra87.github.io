@@ -64,6 +64,11 @@ function parrafo() {
     document.getElementById("tipo").innerHTML = etiqueta
 }
 
+function infoProduct(id){
+    localStorage.setItem("product",id);
+    window.location = "product-info.html"
+}
+
 /*probando funciones
 function mostrarproductos(array_prod){
     let htmlContentToAppend = "";
@@ -105,7 +110,7 @@ function muestraListadoProductos(array) {
             ((valorMax == undefined) || (valorMax != undefined && parseInt(cadaProducto.cost) <= valorMax))) {
 
             htmlContentToAppend += `
-            <div class="list-group-item list-group-item-action cursor-active">
+            <div class="list-group-item list-group-item-action cursor-active" onclick=infoProduct(${cadaProducto.id})>
                 <div class="row">
                     <div class="col-3">
                         <img src="${cadaProducto.image}" alt="${cadaProducto.name}" class="img-thumbnail">

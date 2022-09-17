@@ -219,3 +219,9 @@ a.custom-card:hover {
   color: #7ABA85  
  
 } 
+
+#info p {
+  font-size: 120%;
+  font-weight: lighter;
+  
+}

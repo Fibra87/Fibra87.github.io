@@ -24,7 +24,7 @@ function muestraProductInfo() {
 
 function muestraImagenes(){
 
-  let imgsMostrar = ""
+  let imgsMostrar = "";
   for (let i = 0; i < prodInfo.images.length; i++) {
     let imagenes = prodInfo.images[i];
     imgsMostrar += `<img src=${imagenes} alt=imag width="200" height="auto" style="margin: 10px">`;
@@ -33,6 +33,63 @@ function muestraImagenes(){
   }
 
 }
+/*
+
+function muestraImagenesv2(){
+  
+  let imgsMostrar = "";
+  for (let i = 0; i < prodInfo.images.length; i++) {
+    let imagenes = prodInfo.images[i];
+    imgsMostrar += `
+    <div class="carousel-item active">
+      <img src=${imagenes} class="d-block w-100" alt="imag${[i]}">
+    </div>`
+  }
+
+    let carousel = `
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    ${imgsMostrar}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+  </div>`
+
+  document.getElementById("imagenes").innerHTML = carousel;
+  
+
+}
+
+/*
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+*/
 
 function muestraComentarios() {
 

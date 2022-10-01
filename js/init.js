@@ -39,3 +39,11 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+    
+        
+  document.getElementById("cerrar").addEventListener("click", function() {
+      localStorage.clear();      
+  });
+});

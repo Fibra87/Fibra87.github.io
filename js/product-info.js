@@ -33,6 +33,7 @@ function muestraImagenes(){
   }
 
 }
+
 /*
 
 function muestraImagenesv2(){
@@ -147,6 +148,37 @@ function estrellitas(numero){
   return calificacion;
 }*/
 
+function muestraRelacionados(){
+
+  let tarjetas = "";
+  for (let i = 0; i < prodInfo.relatedProducts.length; i++) {
+    let articulos = prodInfo.relatedProducts[i];
+    tarjetas +=` 
+    <div class="col-sm-6">
+      <div class="card border-light">
+        <div class="card-body">
+          <div class="card" style="width: 18rem;">
+            <img src="${articulos.image}" class="card-img-top" alt="i${i}" onclick="abrirRelacionado(${articulos.id})" >
+            <div class="card-body">
+             <p class="card-text">${articulos.name}.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`
+    let prodRelacionados = `
+    <h2> Productos relacionados.</h2>
+    <div class="row">`+tarjetas+`</div>`;
+    
+    document.getElementById("relacionados").innerHTML = prodRelacionados;
+  }
+
+}
+
+function abrirRelacionado(id) {
+  localStorage.setItem("product",id);
+  location.reload();
+}
 
 
 document.addEventListener("DOMContentLoaded", function (e) {
@@ -157,13 +189,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
       muestraImagenes(prodInfo);
     }
   })
-})
+});
 
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(comentariosJson).then(function (resultObj) {
     if (resultObj.status === "ok") {
       comentarios_array = resultObj.data;
-      muestraComentarios();
+      muestraComentarios()
+      muestraRelacionados();
     }
   })
-})
+});
+

@@ -225,3 +225,7 @@ a.custom-card:hover {
   font-weight: lighter;
   
 }
+
+.card #relacionados {
+  border: transparent!important;
+}

@@ -17,6 +17,8 @@ function validar() {
     //si las condiciones son validas redirecciona a pagina inicio.
     if (valido){
     localStorage.setItem("usuario", email) 
+    //seteo en localStorage id ficticio obtenido desde el servidor por el Usuario logueado
+    localStorage.setItem("IDusuario", 25801 )
     window.location.href = "inicio.html";
     }
 }

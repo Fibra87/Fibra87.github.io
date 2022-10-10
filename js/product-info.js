@@ -188,16 +188,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
       muestraProductInfo(prodInfo);
       muestraImagenes(prodInfo);
     }
-  })
-});
-
-document.addEventListener("DOMContentLoaded", function (e) {
-  getJSONData(comentariosJson).then(function (resultObj) {
-    if (resultObj.status === "ok") {
-      comentarios_array = resultObj.data;
-      muestraComentarios()
-      muestraRelacionados();
-    }
-  })
-});
+  }).then(function (e) {
+    getJSONData(comentariosJson).then(function (resultObj) {
+      if (resultObj.status === "ok") {
+        comentarios_array = resultObj.data;
+        muestraComentarios();
+        muestraRelacionados();
+      }});
+})});
 

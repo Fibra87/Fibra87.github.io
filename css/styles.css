@@ -229,3 +229,8 @@ a.custom-card:hover {
 .card #relacionados {
   border: transparent!important;
 }
+
+#quantity  {
+  text-align: center;
+  
+}

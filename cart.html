@@ -59,7 +59,43 @@
         <tbody class="table-group-divider align-middle" id="carrito">
         </tbody>
       </table>
+      <hr class="mb-4">
+      <h5 class="mb-3">Tipo de envío</h5>
+      <div class="d-block my-3">
+        <div class="custom-control custom-radio">
+          <input id="goldradio" name="publicationType" type="radio" class="custom-control-input" checked="" required="">
+          <label class="custom-control-label" for="goldradio">Premium 2 a 5 dias (15%)</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input id="premiumradio" name="publicationType" type="radio" class="custom-control-input" required="">
+          <label class="custom-control-label" for="premiumradio">Express 5 a 6 dias (7%)</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input id="standardradio" name="publicationType" type="radio" class="custom-control-input" required="">
+          <label class="custom-control-label" for="standardradio">Standard (5%)</label>
+        </div>
+      </div>
+      <div class="d-block my-3">
+        <h5 class="mb-3">Direccion de envío</h5>
+        <div class="row">
+          <div class="col-6">
+            <label for="Calle">Calle</label>
+            <input type="text" class="form-control"  aria-label="Calle">
+          </div>
+          <div class="col-4">
+            <label for="Número">Número</label>
+            <input type="text" class="form-control"  aria-label="Número">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="Esquina">Esquina</label>
+            <input type="text" class="form-control"  aria-label="Esquina">
+          </div>
+        </div>
+      </div>
     </div>
+          
   </main>
   <footer class="text-muted">
     <div class="container">

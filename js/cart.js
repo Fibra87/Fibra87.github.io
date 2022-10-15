@@ -19,14 +19,14 @@ function muestraCarrito(){
       if (cantidad > 1){
         subtotal = costo * cantidad;
       }
-
+          //colocar indexado para los id de forma de identificar unicamente en cada iteracion.
       carritoMostrar += `
       <tr>
       <th scope="row"><img src="${producto.image}" width="75"></th>
       <td>${producto.name}</td>
-      <td><span id="moneda">${moneda+" "}</span><span id="cost">${costo}</span></td>
+      <td><span id="moneda">${moneda+" "}</span><span id="cost">${costo}</span></td> 
       <td><input type="number" id="quantity" name="quantity" size="1" min="1" max="100" step="1" value="${cantidad}"></td>
-      <td><span id="subtotalMoneda">${moneda+" "}</span><span id="subtotal">${subtotal}</span></td>
+      <td id="subtotalcelda"><span>${moneda+" "}</span><span id="subtotal">${subtotal}</span></td>
       </tr>`
       
       

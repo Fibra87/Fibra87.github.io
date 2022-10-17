@@ -238,3 +238,13 @@ a.custom-card:hover {
 #subtotalcelda {
   font-weight: bold;
 }
+
+#enlinea{
+  display: flex;
+  align-items: center; /* Vertical align the elements to the center */
+}
+
+#butt {
+ margin-left:auto;
+   
+}

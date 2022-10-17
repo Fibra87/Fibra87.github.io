@@ -1,62 +1,80 @@
 let usuario = localStorage.getItem("IDusuario");
 let carrito_url = "https://japceibal.github.io/emercado-api/user_cart/" + usuario + ".json";
 let carrito = [];
+let carro = [];
 
 
 
-function muestraCarrito(){
-    
-    let carritoMostrar = "";
-    for (let i = 0; i < carrito.articles.length; i++) {
-      let producto = carrito.articles[i];
-      let moneda = producto.currency;
-      let costo  = producto.unitCost;
-      let cantidad = producto.count;
-      let subtotal = costo;
-      
+function muestraCarrito() {
+
+  let carritoMostrar = "";
+  for (let i = 0; i < carrito.articles.length; i++) {
+    let producto = carrito.articles[i];
+    let moneda = producto.currency;
+    let costo = producto.unitCost;
+    let cantidad = producto.count;
+    let subtotal = costo;
 
 
-      if (cantidad > 1){
-        subtotal = costo * cantidad;
-      }
-          //colocar indexado para los id de forma de identificar unicamente en cada iteracion.
-      carritoMostrar += `
+
+    if (cantidad > 1) {
+      subtotal = costo * cantidad;
+    }
+    carritoMostrar += `
       <tr>
       <th scope="row"><img src="${producto.image}" width="75"></th>
       <td>${producto.name}</td>
-      <td><span id="moneda">${moneda+" "}</span><span id="cost">${costo}</span></td> 
-      <td><input type="number" id="quantity" name="quantity" size="1" min="1" max="100" step="1" value="${cantidad}"></td>
-      <td id="subtotalcelda"><span>${moneda+" "}</span><span id="subtotal">${subtotal}</span></td>
+      <td><span id="moneda">${moneda + " "}</span><span id="cost">${costo}</span></td> 
+      <td><input type="number" id="quantity" name="quantity" size="1" min="1" max="100" step="1" value="${cantidad}" onchange=cambiaCantidad(this.value,${costo},${producto.id})></td>
+      <td id="subtotalcelda"><span>${moneda + " "}</span><span id="sub${producto.id}">${subtotal}</span></td>
       </tr>`
-      
-      
-    }
-    document.getElementById("carrito").innerHTML = carritoMostrar;
+
+  }
+  document.getElementById("carrito").innerHTML = carritoMostrar;
 }
-  
-function cambiaCantidad(){  
 
-  let laCantidad = document.getElementById("quantity").value;
-  console.log(laCantidad);
-  let elCosto = carrito.articles[0].unitCost;//porque no me dejo tomarlo con dom desde el html de la iteracion? y como hacerlo si fuesen mas de uno.
-  console.log(elCosto);
-  let costoFinal = laCantidad * elCosto;  
+function cambiaCantidad(valor, elCosto, id) {
 
-  document.getElementById("subtotal").innerHTML = costoFinal;
+  let costoFinal = valor * elCosto;
+
+  document.getElementById("sub" + id).innerHTML = costoFinal;
   location.reload;
 };
 
+function carroUpdate() {
+  if (localStorage.getItem("carro")) {
+    carro = JSON.parse(localStorage.getItem("carro"));
+    console.log(carro);
+  };
+};
+
+function juntaProd() {
+
+  for (let i = 0; i < carro.length; i++) {
+    const pasaProd = carro[i];
+    carrito.articles.push(pasaProd)
+
+  }
+  console.log(carrito);
+
+}
+
 document.addEventListener("DOMContentLoaded", function (e) {
-    getJSONData(carrito_url).then(function (resultObj) {
-      if (resultObj.status === "ok") {
-        carrito = resultObj.data;
-        console.log(carrito);
-        muestraCarrito();
-        document.getElementById("quantity").addEventListener("change", cambiaCantidad);
-      }
-    })
+  getJSONData(carrito_url).then(function (resultObj) {
+    if (resultObj.status === "ok") {
+      carrito = resultObj.data;
+      console.log(carrito);
+      carroUpdate();
+      juntaProd();
+      muestraCarrito();
+
+
+
+
+    }
+  })
 });
 
 
-  
+
 

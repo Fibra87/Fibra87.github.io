@@ -1,14 +1,18 @@
 let productoSeleccionado = localStorage.getItem("product")
 let prodinfo_url = "https://japceibal.github.io/emercado-api/products/" + productoSeleccionado + ".json";
 let prodInfo = []
-let comentariosJson = PRODUCT_INFO_COMMENTS_URL + productoSeleccionado +  ".json";
+let comentariosJson = PRODUCT_INFO_COMMENTS_URL + productoSeleccionado + ".json";
 let comentarios_array = []
+let carro = [];
+
 
 function muestraProductInfo() {
 
   let description = `
   <br>
-  <h1>${prodInfo.name} </h1>
+  <div id="enlinea">
+    <h1>${prodInfo.name} </h1><button id="butt" class="btn btn-primary btn-lg" type="button">Comprar</button>
+  </div>
   <hr>
   <h3> Precio: </h3>
   <p> $${prodInfo.cost}  </p>
@@ -22,7 +26,7 @@ function muestraProductInfo() {
   return document.getElementById("info").innerHTML = description;
 }
 
-function muestraImagenes(){
+function muestraImagenes() {
 
   let imgsMostrar = "";
   for (let i = 0; i < prodInfo.images.length; i++) {
@@ -109,24 +113,24 @@ function muestraComentarios() {
   `
 }
 
-function estrellitasV2(numero){
+function estrellitasV2(numero) {
   let estrellaLlenas = `
   <span class="fa fa-star checked"></span>`;
-  let estrellaVacia =`
+  let estrellaVacia = `
   <span class="fa fa-star"></span>`;
-  let llenas_colocar ="";
+  let llenas_colocar = "";
   let vacias_colocar = "";
   let vacias_calc = 5 - numero;
-  
+
 
   for (let i = 0; i < numero; i++) {
-  llenas_colocar += estrellaLlenas;
+    llenas_colocar += estrellaLlenas;
   }
   for (let i = 0; i < vacias_calc; i++) {
     vacias_colocar += estrellaVacia;
   }
-  
-  return llenas_colocar + vacias_colocar ;
+
+  return llenas_colocar + vacias_colocar;
 }
 
 /* Esta funcion fue la primera que hice para las estrellas y fue usando ".repeat", luego quise probar usando "for" que es estrellitasV2 actual en uso.
@@ -148,12 +152,12 @@ function estrellitas(numero){
   return calificacion;
 }*/
 
-function muestraRelacionados(){
+function muestraRelacionados() {
 
   let tarjetas = "";
   for (let i = 0; i < prodInfo.relatedProducts.length; i++) {
     let articulos = prodInfo.relatedProducts[i];
-    tarjetas +=` 
+    tarjetas += ` 
     <div class="col-sm-6">
       <div class="card border-light">
         <div class="card-body">
@@ -168,25 +172,60 @@ function muestraRelacionados(){
     </div>`
     let prodRelacionados = `
     <h2> Productos relacionados.</h2>
-    <div class="row">`+tarjetas+`</div>`;
-    
+    <div class="row">`+ tarjetas + `</div>`;
+
     document.getElementById("relacionados").innerHTML = prodRelacionados;
   }
 
 }
 
 function abrirRelacionado(id) {
-  localStorage.setItem("product",id);
+  localStorage.setItem("product", id);
   location.reload();
 }
 
+function chequeaIguales() {
+  let contador = 0;
+  for (let i = 0; i < carro.length; i++) {
+    if (carro[i].name === prodInfo.name) {
+      contador = 1;
+    }
+  };
+  if (contador != 1) {
+    let aCargar = { id: prodInfo.id, name: prodInfo.name, count: 1, unitCost: prodInfo.cost, currency: prodInfo.currency, image: prodInfo.images[0] };
+    carro.push(aCargar);
+    localStorage.setItem("carro", JSON.stringify(carro));
+    console.log(carro);
+  } else { console.log("ya estaba") };
+};
+
+function cargaCarro(producto) {
+  if (localStorage.getItem("carro")) {
+    carro = JSON.parse(localStorage.getItem("carro"));
+    console.log(carro);
+    chequeaIguales();
+
+
+  } else {
+    let aCargar = { id: prodInfo.id, name: prodInfo.name, count: 1, unitCost: prodInfo.cost, currency: prodInfo.currency, image: prodInfo.images[0] };
+    carro.push(aCargar);
+    localStorage.setItem("carro", JSON.stringify(carro));
+    console.log(carro);
+  }
+}
 
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(prodinfo_url).then(function (resultObj) {
     if (resultObj.status === "ok") {
       prodInfo = resultObj.data;
+      console.log(prodInfo);
+      console.log(prodInfo.id);
       muestraProductInfo(prodInfo);
       muestraImagenes(prodInfo);
+      document.getElementById("butt").addEventListener("click", function (a) {
+        cargaCarro(prodInfo.id);
+
+      })
     }
   }).then(function (e) {
     getJSONData(comentariosJson).then(function (resultObj) {
@@ -194,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         comentarios_array = resultObj.data;
         muestraComentarios();
         muestraRelacionados();
-      }});
-})});
-
+      }
+    });
+  })
+});

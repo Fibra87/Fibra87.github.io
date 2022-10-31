@@ -192,7 +192,7 @@ function chequeaIguales() {
     }
   };
   if (contador != 1) {
-    let aCargar = { id: prodInfo.id, name: prodInfo.name, count: 1, unitCost: prodInfo.cost, currency: prodInfo.currency, image: prodInfo.images[0] };
+    let aCargar = { id: prodInfo.id, name: prodInfo.name, count: 1, unitCost: prodInfo.cost, currency: prodInfo.currency, image: prodInfo.images[0], subtotal:prodInfo.cost};
     carro.push(aCargar);
     localStorage.setItem("carro", JSON.stringify(carro));
     console.log(carro);
@@ -207,7 +207,7 @@ function cargaCarro(producto) {
 
 
   } else {
-    let aCargar = { id: prodInfo.id, name: prodInfo.name, count: 1, unitCost: prodInfo.cost, currency: prodInfo.currency, image: prodInfo.images[0] };
+    let aCargar = { id: prodInfo.id, name: prodInfo.name, count: 1, unitCost: prodInfo.cost, currency: prodInfo.currency, image: prodInfo.images[0], subtotal:prodInfo.cost};
     carro.push(aCargar);
     localStorage.setItem("carro", JSON.stringify(carro));
     console.log(carro);

@@ -248,3 +248,7 @@ a.custom-card:hover {
  margin-left:auto;
    
 }
+
+#total {
+  font-weight: bold;
+}

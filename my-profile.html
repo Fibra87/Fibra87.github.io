@@ -44,11 +44,12 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item dropdown" >
-            <a class="nav-link dropdown-toggle" href="" id="user" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="user" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false"></a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
               <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
-              <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+              <li><a class="dropdown-item" onclick="chequeaLogueo()" href="#">Mi perfil</a></li>
               <li><a class="dropdown-item" href="index.html" id="cerrar">Cerrar Sesión</a></li>
             </ul>
           </li>
@@ -58,9 +59,61 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+      <br>
+      <h2 class="container text-start">Perfil</h2>
+      <hr>
+      <form class="needs-validation" action="#" method="get" novalidate>
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="Nombre">Primer Nombre*</label>
+            <input id="nombre" type="text" class="form-control" maxlength="40" aria-label="Nombre" onchange="validaciones()" required>
+            <div class="invalid-feedback">
+              Ingrese un Nombre
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="SegundoNombre">Segundo Nombre</label>
+            <input id="nombreSegundo" type="text" class="form-control" maxlength="40" aria-label="SegundoNombre" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="Apellido">Primer Apellido*</label>
+            <input id="apellido" type="text" class="form-control" maxlength="40" aria-label="Apellido" onchange="validaciones()" required>
+            <div class="invalid-feedback">
+              Ingrese un Apellido
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="SegundoApellido">Segundo Apellido</label>
+            <input id="apellidoSegundo" type="text" class="form-control" maxlength="40" aria-label="SegundoApellido" required>
+          </div>
+          <br>
+        </div>
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="email">E-Mail*</label>
+            <input id="inputEmail" type="text" class="form-control" maxlength="40" aria-label="email" onchange="validaciones()" required>
+            <div class="invalid-feedback">
+              Ingrese un Email
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="Número">Telefono de Contacto</label>
+            <input id="contactnum" type="text" class="form-control" maxlength="40" aria-label="Número" required>
+            <div class="invalid-feedback">
+              Ingrese un Número
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <hr>
+          <div class="d-grid gap-2 d-md-block">
+            <button id="guardar" class="btn btn-primary" type="button">Guardar cambios</button>
+          </div>
+        </div>
+    </div>
+    </form>
     </div>
   </main>
   <footer class="text-muted">

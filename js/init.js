@@ -40,10 +40,38 @@ let getJSONData = function(url){
     });
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+function mostrarUsuario(){
     
+  usuario = localStorage.getItem("usuario");
+  document.getElementById("user").innerHTML =  usuario;
+
+}
+
+
+
+function chequeaLogueo(){
+  console.log("se activa");
+  let checklogin = localStorage.getItem("usuario");
+  if  (checklogin !== null) {
+    console.log(" esta logueado");
+    window.location = "my-profile.html";
+
+
+
+  }else{ 
+  console.log("tiene que estar logueado");
+  window.location = "index.html";
+  }
+
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  
+  mostrarUsuario(); 
         
   document.getElementById("cerrar").addEventListener("click", function() {
-      localStorage.clear();      
+      localStorage.removeItem("usuario");      
   });
+  
 });
+

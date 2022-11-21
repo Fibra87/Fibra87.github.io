@@ -2,9 +2,10 @@ let productoSeleccionado = localStorage.getItem("product")
 let prodinfo_url = "https://japceibal.github.io/emercado-api/products/" + productoSeleccionado + ".json";
 let prodInfo = []
 let comentariosJson = PRODUCT_INFO_COMMENTS_URL + productoSeleccionado + ".json";
-let comentarios_array = []
+let comentarios_array = [];
+let comentarios_frontEnd = [];
 let carro = [];
-
+let fecha = new Date()
 
 function muestraProductInfo() {
 
@@ -214,6 +215,50 @@ function cargaCarro(producto) {
   }
 }
 
+function comentarioFrontEnd (){
+
+  
+  let elTexo = document.getElementById("textoComentario").value;
+  let elProducto = localStorage.getItem("product");
+  let puntuacion = document.getElementById("cal").value;
+  let usuario = localStorage.getItem("usuario");
+  let commentdate = `${fecha.getFullYear()}-${(fecha.getMonth())+1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`
+
+  let actualComentario =  { product:elProducto, score:puntuacion, description:elTexo, user:usuario, dateTime:commentdate};
+  
+  if (!localStorage.getItem("Comentarios")){
+    console.log("no hay aun comentarios");
+    comentarios_frontEnd.push(actualComentario);
+    localStorage.setItem("Comentarios", JSON.stringify(comentarios_frontEnd));
+    location.reload();
+  
+  }else{
+    comentarios_frontEnd = JSON.parse(localStorage.getItem("Comentarios"))
+    comentarios_frontEnd.push(actualComentario);
+    console.log(comentarios_frontEnd);
+    localStorage.setItem("Comentarios", JSON.stringify(comentarios_frontEnd));
+    location.reload();
+
+  }
+}
+
+function agregarComentariosFrontEnd(){
+
+  if (localStorage.getItem("Comentarios")){
+    comentariosLocalStorage = JSON.parse(localStorage.getItem("Comentarios"));
+    console.log(comentariosLocalStorage);
+    let relatedcomment = prodInfo.id
+    for (let i = 0; i < comentariosLocalStorage.length; i++) {  
+        unComentario = comentariosLocalStorage[i];
+        
+        if (parseInt(unComentario.product) === relatedcomment ) 
+
+        comentarios_array.push(unComentario);
+        console.log(comentarios_array);
+      }
+  }    
+}
+
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(prodinfo_url).then(function (resultObj) {
     if (resultObj.status === "ok") {
@@ -231,9 +276,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(comentariosJson).then(function (resultObj) {
       if (resultObj.status === "ok") {
         comentarios_array = resultObj.data;
+        agregarComentariosFrontEnd();
+        //esto todavia no //comentarios_array.push(JSON.parse(localStorage.getItem("Comentarios")))
         muestraComentarios();
         muestraRelacionados();
       }
     });
   })
 });
+
+document.getElementById("enviarComentario").addEventListener("click", comentarioFrontEnd);

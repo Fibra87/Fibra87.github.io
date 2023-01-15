@@ -1,8 +1,14 @@
 function handleCredentialResponse(response) {
     const data = jwt_decode(response.credential)
-    console.log(response);
     console.log(data);
-    
+    if (data.email_verified === true){
+        let email = data.email
+        localStorage.setItem("usuario", email) 
+        //seteo en localStorage id ficticio obtenido desde el servidor por el Usuario logueado
+        localStorage.setItem("IDusuario", 25801 )
+        window.location.href = "inicio.html";
+    }
+
     //console.log("Encoded JWT ID token: " + response.credential);
   }
   window.onload = function () {
